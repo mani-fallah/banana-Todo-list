@@ -1,5 +1,9 @@
-
+const form = document.querySelector('#newTaskForm');
+const input = document.querySelector("#newTaskInput");
+const listEl =document.querySelector("#tasks");
 const titleTag = document.title;
+const body = document.body;
+const modeIcon = document.querySelector('#ModeIcon');
 window.addEventListener("blur",()=>{
     document.title = "dont forget to do your list";
 });
@@ -8,22 +12,20 @@ window.addEventListener("focus",()=>{
     document.title = titleTag;
 });
 
-
-
-
 window.addEventListener('load',()=>{
-    const form = document.querySelector('#newTaskForm');
-    const input = document.querySelector("#newTaskInput");
-    const listEl =document.querySelector("#tasks");
+
+
+
     form.addEventListener('submit',(e) => {
         e.preventDefault();
         const task = input.value;
 
         if(!task)
-          alert("please fill this shit")
+          alert("please fill out this input")
         else {
 
             input.value = ''
+
             const taskEl = document.createElement("div");
             taskEl.classList.add("task");
 
@@ -89,8 +91,47 @@ window.addEventListener('load',()=>{
 
         }
 
-
     });
 });
 
 
+// add light mode
+
+modeIcon.addEventListener('click',()=>{
+    if (modeIcon.classList.contains('fa-moon')) {
+        body.style.backgroundColor = "#c5cf2e";
+        modeIcon.classList.remove('fa-moon');
+        modeIcon.classList.add('fa-sun');
+        input.style.backgroundColor = '#e0e5ec';
+        input.style.color = 'var(--dark)';
+        let e =document.getElementsByClassName('task');
+        let v =document.getElementsByClassName('text');
+        for(let i =0 ; i<e.length;i++)
+        {
+            e[i].style.backgroundColor = '#e0e5ec';
+            v[i].style.color = 'var(--dark)'
+        }
+
+
+    }
+
+    else{
+        body.style.backgroundColor= "#c5cf2e";
+        modeIcon.classList.remove('fa-sun');
+        modeIcon.classList.add('fa-moon');
+        body.style.backgroundColor= "var(--dark)";
+        input.style.backgroundColor = "var(--darker)";
+        input.style.color = 'var(--light)';
+        let e =document.getElementsByClassName('task');
+        let v =document.getElementsByClassName('text');
+        for(let i =0 ; i<e.length;i++)
+        {
+            e[i].style.backgroundColor = 'var(--darker)';
+            v[i].style.color = 'var(--light)'
+        }
+    }
+
+
+
+
+})
